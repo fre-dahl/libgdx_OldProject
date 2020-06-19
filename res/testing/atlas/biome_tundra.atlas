@@ -1,0 +1,118 @@
+
+biome_tundra.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+baseTile_water
+  rotate: false
+  xy: 352, 320
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+basetile_grass
+  rotate: false
+  xy: 352, 336
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+basetile_grassLight
+  rotate: false
+  xy: 416, 496
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+basetile_snow
+  rotate: false
+  xy: 0, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+basetile_waterDeep
+  rotate: false
+  xy: 0, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+basetile_waterShallow
+  rotate: false
+  xy: 256, 112
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+cloud_large_new
+  rotate: false
+  xy: 0, 352
+  size: 416, 160
+  orig: 416, 160
+  offset: 0, 0
+  index: -1
+ripples_anim
+  rotate: false
+  xy: 0, 320
+  size: 352, 32
+  orig: 352, 32
+  offset: 0, 0
+  index: -1
+tileset_grass
+  rotate: false
+  xy: 128, 32
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_grassLight
+  rotate: false
+  xy: 256, 128
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_shoreGround
+  rotate: false
+  xy: 0, 224
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_shoreWater
+  rotate: false
+  xy: 128, 224
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_snow
+  rotate: false
+  xy: 256, 224
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_water
+  rotate: false
+  xy: 0, 128
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_waterDeep
+  rotate: false
+  xy: 0, 32
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+tileset_waterShallow
+  rotate: false
+  xy: 128, 128
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1

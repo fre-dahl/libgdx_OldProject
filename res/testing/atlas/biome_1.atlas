@@ -1,0 +1,111 @@
+
+biome_1.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+grass_light_on_grass
+  rotate: false
+  xy: 0, 288
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+grass_light_tile - Copy
+  rotate: false
+  xy: 144, 304
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+grass_on_grass
+  rotate: false
+  xy: 0, 0
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+grass_tile
+  rotate: false
+  xy: 256, 400
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+overlay_snow
+  rotate: false
+  xy: 128, 320
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+shore_ground
+  rotate: false
+  xy: 384, 416
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+shore_water_shallow
+  rotate: false
+  xy: 0, 96
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+snow_tile
+  rotate: false
+  xy: 256, 384
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+water_deep
+  rotate: false
+  xy: 256, 416
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+water_deep_tile
+  rotate: false
+  xy: 272, 400
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+water_on_water_deep
+  rotate: false
+  xy: 128, 416
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+water_overlay
+  rotate: false
+  xy: 0, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+water_shallow_on_water
+  rotate: false
+  xy: 0, 192
+  size: 128, 96
+  orig: 128, 96
+  offset: 0, 0
+  index: -1
+water_shallow_tile
+  rotate: false
+  xy: 128, 288
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+water_tile
+  rotate: false
+  xy: 128, 304
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
