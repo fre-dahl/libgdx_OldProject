@@ -4,6 +4,8 @@ The program should should run in it's current state. You should see foreground, 
 I am including the external gdx - libraries i am using in a lib folder within the project. Not using gradle or the gdx project setup.
 I never got this to work so i add the libraries manually.
 
+I hope this doesn't make it very inconvenient
+
 You move around with mouse (click and zoom) or keys (up,left,down,right or w,a,s,d)
 
 You start the program in "playstate". where a world gets initialized. You can generate a new world with SPACE from "playstate".
