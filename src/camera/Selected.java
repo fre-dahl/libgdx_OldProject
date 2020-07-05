@@ -1,7 +1,7 @@
 package camera;
 
-import culling.Section;
-import culling.Zone;
+import graphics.culling.Section;
+import graphics.culling.Zone;
 
 public class Selected {
 

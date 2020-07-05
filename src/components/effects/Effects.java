@@ -1,15 +1,15 @@
 package components.effects;
 
-import assets.Assets;
+import graphics.Assets;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import components.effects.Effect.Type;
 import com.badlogic.gdx.utils.Array;
-import drawdata.drwabstract.DrwPool;
+import graphics.drwdat.abstr.DrwPool;
 
 public class Effects implements Disposable {
 
-    // a effect don't need to check culling. The object instancing it will.
+    // a effect don't need to check graphics.culling. The object instancing it will.
     public static Effects instance = new Effects();
     public Array<Effect> current;
     public Factory factory;
@@ -95,7 +95,7 @@ public class Effects implements Disposable {
         private final DrwPool<Effect> knightExplodePool = new DrwPool<Effect>() {
             @Override
             protected Effect newObject() {
-                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetRipples.anim);
+                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetKnight.knight_explode);
             }
         };
     }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Wind {
 
-    private static final int MEASUREPOINT = 60;
+    private static final int MEASUREPOINT = 30;
     public Direction direction;
     private Vector2 velocity;
     private float timer = 0;
@@ -44,7 +44,7 @@ public class Wind {
             vector.setAngle(degrees);
         }
 
-        public Direction getDirection(float d) {
+        private Direction getDirection(float d) {
             if (d<0) return ESE;
             if (d>360) return ENE;
             for (Direction dir : Direction.values()) {
@@ -72,6 +72,7 @@ public class Wind {
         velocity.set(x,y);
         return velocity;
     }
+
 
     public void increaseWind(int amount) {
         strength+=amount;

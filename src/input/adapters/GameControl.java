@@ -88,7 +88,8 @@ public class GameControl extends Control {
 
     @Override
     public boolean scrolled(int amount) {
-        Cam.instance.zoom(amount);
+        if (amount<1) Cam.instance.zoomOut();
+        else Cam.instance.zoomInn();
         return true;
     }
 

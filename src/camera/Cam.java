@@ -15,6 +15,10 @@ public class Cam {
     private boolean moved;
     private boolean zoomed;
 
+    private float zoomPow;
+    private static final float zoomMin = 0.125f;
+    private static final float zoomMax = 16f;
+
     private Vector2 direction;
     private Vector2 tmpVector2;
     private Vector3 tmpVector3;
@@ -42,8 +46,26 @@ public class Cam {
         }
     }
 
-    public void zoom(int amount) {
-        camera.zoom += amount;
+    public void SetZoom(int amount) {
+        camera.zoom = amount;
+        System.out.println(camera.zoom);
+        camera.update();
+        zoomed = true;
+    }
+
+    public void zoomInn() {
+        zoomPow += 1;
+        camera.zoom = (float) Math.pow(2, zoomPow) * Settings.SCALE;
+        System.out.println(camera.zoom / Settings.SCALE);
+        camera.update();
+        zoomed = true;
+
+    }
+
+    public void zoomOut() {
+        zoomPow -= 1;
+        camera.zoom = (float) Math.pow(2, zoomPow) * Settings.SCALE;
+        System.out.println(camera.zoom / Settings.SCALE);
         camera.update();
         zoomed = true;
     }
@@ -161,4 +183,5 @@ public class Cam {
     public Rectangle getWorldWindow() { return worldWindow; }
 
     public Rectangle getCullingWindow() { return cullingWindow; }
+
 }

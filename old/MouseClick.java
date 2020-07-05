@@ -1,10 +1,10 @@
 package input;
 
-import assets.Assets;
+import graphics.assets.Assets;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import drawdata.DrwExtra;
+import graphics.drwdat.DrwExtra;
 import main.Settings;
 
 public class MouseClick {

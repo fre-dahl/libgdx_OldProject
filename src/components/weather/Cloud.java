@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import components.GameWorld;
-import drawdata.DrwExtra;
-import drawdata.drwabstract.DrwPool.DrwPoolable;
+import graphics.drwdat.DrwExtra;
+import graphics.drwdat.abstr.DrwPool.DrwPoolable;
 import main.Settings;
 
 public class Cloud implements DrwPoolable {
@@ -17,7 +17,7 @@ public class Cloud implements DrwPoolable {
     private static final float fadeOutStart = 30;
     private static final float alphaTarget = 0.1f;
     private static final float alphaDelta = 0.02f;
-    private static final byte reflectLayer = 2;
+    private static final byte reflectLayer = 1;
     private static final byte shadowtLayer = 6;
     private float fadeOutTimer = 30;
     private float velocityMod;
@@ -47,8 +47,8 @@ public class Cloud implements DrwPoolable {
                 fadeOut = true;
             }else fadeOutTimer = fadeOutStart;
         }
-        pos.x += weather.wind.getVelocity().x * velocityMod * dt;
-        pos.y += weather.wind.getVelocity().y * velocityMod * dt;
+        pos.x += weather.wind.getVelocity().x * velocityMod * dt * Settings.SCALE;
+        pos.y += weather.wind.getVelocity().y * velocityMod * dt * Settings.SCALE;
         cloudRegion.setPosition(pos.x,pos.y);
         boundary.setPosition(pos.x,pos.y);
         if (Cam.instance.getCullingWindow().overlaps(boundary)) cloudRegion.setRender(true);

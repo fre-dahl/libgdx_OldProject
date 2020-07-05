@@ -2,8 +2,8 @@ package components.effects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import drawdata.DrwRegion;
-import drawdata.drwabstract.DrwPool.DrwPoolable;
+import graphics.drwdat.DrwRegion;
+import graphics.drwdat.abstr.DrwPool.DrwPoolable;
 import main.Settings;
 
 public class Effect implements DrwPoolable { // Make your own Animation class. it keeps checking playmodes each cycle (inefective)
@@ -26,7 +26,7 @@ public class Effect implements DrwPoolable { // Make your own Animation class. i
         BLOOD((byte)4),
         BLOOD_SPLATTER((byte)5),
         KNIGHT_EXPLODE((byte)5),
-        WATER_RIPPLES((byte)2);
+        WATER_RIPPLES((byte)1);
 
         byte layer;
 

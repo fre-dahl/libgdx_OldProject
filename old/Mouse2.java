@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import main.Settings;
-import culling.Dimensions.MAP;
+import graphics.culling.Dimensions.MAP;
 
 public class Mouse2 {
 

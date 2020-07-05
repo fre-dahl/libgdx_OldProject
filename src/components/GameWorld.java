@@ -3,31 +3,50 @@ package components;
 import camera.Cam;
 import camera.FocusPoint;
 import com.badlogic.gdx.math.Rectangle;
-import assets.Assets;
+import com.badlogic.gdx.utils.Array;
+import components.entity.Entity;
+import components.entity.Knight;
+import components.tile.TileMap;
+import graphics.Assets;
 import com.badlogic.gdx.utils.Disposable;
 import components.effects.Effects;
 import components.weather.Weather;
-import managers.DrwHandler;
-import tilecoding.process.Setup;
+import input.Mouse;
+import main.Settings;
+import graphics.DrwHandler;
+import components.tile.tilecoding.process.Setup;
+import ui.GameUI;
 
 
 public class GameWorld implements Disposable {
 
+    Array<Knight> knights;
+    int number = 100;
     Biome biome;
     TileMap map;
     Weather weather;
+    GameUI gameUI;
 
     public static Rectangle bounds;
 
     public void newArea() {
+
+        Mouse.instance.setMouseEventListener(gameUI = new GameUI());
         DrwHandler.instance.clear();
         if (weather!=null) weather.dispose();
+        if (knights!=null) {
+            for (Knight knight : knights) {
+                knight.dispose();
+            }
+            knights.clear();
+        }
         DrwHandler.instance.set(1,true);
         DrwHandler.instance.set(2,true);
         DrwHandler.instance.set(3,true);
         DrwHandler.instance.set(4,true);
         DrwHandler.instance.set(5,true);
         DrwHandler.instance.set(6,true);
+        DrwHandler.instance.sort(5,true);
         biome = new Biome(Biome.BIOME.TUNDRA);
         Assets.instance.loadBiome(biome);
         map = Setup.init(800,800, biome);
@@ -35,12 +54,27 @@ public class GameWorld implements Disposable {
         weather = new Weather();
         Cam.instance.reset();
         FocusPoint.position.set(map.getCentre());
+        knights = new Array<>();
+        
+        for (int i = 0; i < number; i++) {
+            Knight knight = new Knight(Entity.Type.KNIGHT, map, FocusPoint.position.x + i*16*Settings.SCALE,FocusPoint.position.y);
+            knights.add(knight);
+        }
+
         Cam.instance.lockOnTarget(FocusPoint.position);
-        Cam.instance.zoom(1);
+        Cam.instance.SetZoom(Settings.SCALE);
     }
 
 
     public void update(float dt) {
+        if (Mouse.instance.getR_justPressed()) {
+            for (Knight knight : knights) {
+                knight.moveTo(Mouse.instance.getR_clickPos_W());
+            }
+        }
+        for (Knight knight : knights) {
+            knight.update(dt);
+        }
         map.rendercheck();
         weather.update(dt);
         Effects.instance.update(dt);
@@ -49,8 +83,8 @@ public class GameWorld implements Disposable {
 
     @Override
     public void dispose() {
-        Effects.instance.dispose();
         weather.dispose();
+        Effects.instance.dispose();
         DrwHandler.instance.clear();
     }
 }

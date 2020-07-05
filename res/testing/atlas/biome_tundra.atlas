@@ -1,117 +1,145 @@
 
 biome_tundra.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 baseTile_water
   rotate: false
-  xy: 352, 320
+  xy: 0, 208
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_grass
   rotate: false
-  xy: 352, 336
+  xy: 256, 736
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_grassLight
   rotate: false
-  xy: 416, 496
+  xy: 928, 928
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_snow
   rotate: false
-  xy: 0, 16
+  xy: 352, 768
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_waterDeep
   rotate: false
-  xy: 0, 0
+  xy: 416, 784
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_waterShallow
   rotate: false
-  xy: 256, 112
+  xy: 800, 880
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 cloud_large_new
   rotate: false
-  xy: 0, 352
+  xy: 0, 784
   size: 416, 160
   orig: 416, 160
   offset: 0, 0
   index: -1
+knight_yellow_explode
+  rotate: false
+  xy: 416, 896
+  size: 512, 48
+  orig: 512, 48
+  offset: 0, 0
+  index: -1
+knight_yellow_idle
+  rotate: false
+  xy: 0, 416
+  size: 128, 168
+  orig: 128, 168
+  offset: 0, 0
+  index: -1
+knight_yellow_shadow
+  rotate: false
+  xy: 128, 456
+  size: 16, 8
+  orig: 16, 8
+  offset: 0, 0
+  index: -1
+knight_yellow_walk
+  rotate: false
+  xy: 0, 584
+  size: 128, 168
+  orig: 128, 168
+  offset: 0, 0
+  index: -1
 ripples_anim
   rotate: false
-  xy: 0, 320
+  xy: 0, 752
   size: 352, 32
   orig: 352, 32
   offset: 0, 0
   index: -1
 tileset_grass
   rotate: false
-  xy: 128, 32
+  xy: 0, 224
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_grassLight
   rotate: false
-  xy: 256, 128
+  xy: 128, 464
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_shoreGround
   rotate: false
-  xy: 0, 224
+  xy: 416, 800
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_shoreWater
   rotate: false
-  xy: 128, 224
+  xy: 0, 320
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_snow
   rotate: false
-  xy: 256, 224
+  xy: 672, 800
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_water
   rotate: false
-  xy: 0, 128
+  xy: 128, 656
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_waterDeep
   rotate: false
-  xy: 0, 32
+  xy: 544, 800
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 tileset_waterShallow
   rotate: false
-  xy: 128, 128
+  xy: 128, 560
   size: 128, 96
   orig: 128, 96
   offset: 0, 0

@@ -1,9 +1,9 @@
 package old;
 
 import components.BaseTile;
-import tilecoding.process.PsuedoSetup;
-import tilecoding.psuedoComponents.PsuedoMap;
-import tilecoding.psuedoComponents.PsuedoTile;
+import components.tile.tilecoding.process.PsuedoSetup;
+import components.tile.tilecoding.psuedoComponents.PsuedoMap;
+import components.tile.tilecoding.psuedoComponents.PsuedoTile;
 import main.Settings;
 
 import java.util.ArrayList;

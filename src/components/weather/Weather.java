@@ -1,12 +1,12 @@
 package components.weather;
 
-import assets.Assets;
+import graphics.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import components.GameWorld;
-import drawdata.drwabstract.DrwPool;
+import graphics.drwdat.abstr.DrwPool;
 import main.Settings;
 
 public class Weather implements Disposable {
@@ -17,8 +17,8 @@ public class Weather implements Disposable {
     public Weather() {
         clouds = new Array<>();
         cloudPool = new CloudPool();
-        wind = new Wind(50, Wind.Direction.SE);
-        for (int i = 0; i < 50 ; i++) spawnCloud();
+        wind = new Wind(25, Wind.Direction.ENE);
+        for (int i = 0; i < 75 ; i++) spawnCloud();
     }
 
     public void update(float dt) {

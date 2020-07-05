@@ -1,29 +1,26 @@
 package components.tile.tilecoding.process;
 
-import components.tile.tilecoding.logic.BitmaskLogic;
+import components.Biome;
+import main.Settings;
 import components.tile.tilecoding.noiceGenerators.PerlinNoiseGenerator;
 import components.tile.tilecoding.psuedoComponents.PsuedoMap;
 import components.tile.tilecoding.psuedoComponents.PsuedoTile;
-import main.Settings;
-import utils.Counter;
-
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class PsuedoSetup {
 
-    // This static class readies a "psuedomap" for creation of an actual tile-based map (Setup.class).
+    // This class readies a "psuedomap" for creation of an actual tile-based map (Setup.class).
     // This greatly simplifies actual tile and tile-map classes. Holding everything related to generation seperate from them.
-    // It's all done statically with no leftover references to "Psuedo-components".
-    // It takes the input from the Settings.class and makes a perlin-noise based psuedomap.
+    // It's all done  with no leftover references to "Psuedo-components". Makes a perlin-noise based psuedomap.
     // The main component of the psuedomap is the psuedotile, holding a tier [0,4], corresponding to the perlin noice output.
     // Psuedosetup will give each psuedo-tile a tier and bitmask-value. The bitmask value is used for giving the actual TILE the correct texture-region.
     // PsuedoSetup can also make a secondary "perlin-map" of another terrain overlapping the basemap in a nice way.
     // A "smoothen" method does just that. It "removes" some or all of tiles with no neighbors of same type.
 
 
-
-    public static PsuedoMap baseTerrain (int rows, int cols) {
+    public PsuedoMap baseTerrain (int rows, int cols, Biome biome) {
         PsuedoMap map = new PsuedoMap(rows, cols);
 
         float[][] whiteNoice = PerlinNoiseGenerator.generateWhiteNoise(cols,rows);
@@ -34,10 +31,9 @@ public class PsuedoSetup {
         for(int row = 0; row < map.rows; row ++) {
             for (int col = 0; col < map.cols; col++) {
                 PsuedoTile tile = new PsuedoTile(perlinNoice[col][row],col,row);
-
+                biome.setTier(tile);
                 if(currentRow == row){
                     mapRow.add(tile);
-                    // Last row and column?
                     if (row == map.rows - 1 && col == map.cols - 1){
                         map.tiles.add(mapRow);
                     }
@@ -50,20 +46,58 @@ public class PsuedoSetup {
                 }
             }
         }
-
         smoothen(map);
-        if (Settings.SECONDARY_TERRAIN) { secondaryTerrain(map);}
-
+        secondaryTerrain(map);
         map.codeTiles();
-        map.setBitMaskValue();
-
-        if (Settings.SECONDARY_TERRAIN){
-            map.setSecondaryBitMaskValue();
-        }
+        map.setMaskAll();
         return map;
     }
 
-    private static void smoothen(PsuedoMap map) {
+
+    private void secondaryTerrain (PsuedoMap map) {
+        if (!Settings.SECONDARY_TERRAIN) return;
+        PsuedoMap secondaryMap = new PsuedoMap(map.rows, map.cols);
+        float[][] whiteNoice = PerlinNoiseGenerator.generateWhiteNoise(secondaryMap.cols,secondaryMap.rows);
+        float[][] perlinNoice = PerlinNoiseGenerator.generatePerlinNoise(whiteNoice, Settings.OCTAVE_COUNT);
+        ArrayList<PsuedoTile> mapRow = new ArrayList<>();
+        int currentRow = 0;
+
+        for(int row = 0; row < map.rows; row ++) {
+            for (int col = 0; col < map.cols; col++) {
+
+                PsuedoTile tile = new PsuedoTile(perlinNoice[col][row],col,row, Settings.SECONDARY_AMOUNT);
+
+                if(currentRow == row){
+                    mapRow.add(tile);
+                    if (row == secondaryMap.rows - 1 && col == secondaryMap.cols - 1){
+                        secondaryMap.tiles.add(mapRow);
+                    }
+                }
+                else {
+                    currentRow = row;
+                    secondaryMap.tiles.add(mapRow);
+                    mapRow = new ArrayList<PsuedoTile>();
+                    mapRow.add(tile);
+                }
+            }
+        }
+        smoothen(secondaryMap); // Denne smoother basen dvs før tiles er valgt ut
+
+        PsuedoTile baseTile, secTile;
+        for(int row = 0; row < map.rows; row ++) {
+            for (int col = 0; col < map.cols; col++) {
+
+                baseTile = map.getTile(row,col);
+                secTile = secondaryMap.getTile(row,col);
+
+                if ((baseTile.tier > 2) && (secTile.secondaryTier == 1)) {
+                    baseTile.secondary = true;
+                }
+            }
+        }
+    }
+
+    private void smoothen(PsuedoMap map) {
 
         int[] rows = {1,0,-1};
         int[] cols = {-1,0,1};
@@ -93,47 +127,6 @@ public class PsuedoSetup {
                     if(rng.nextInt(10) < chance) {
                         tile.tier = tile.potentialTier;
                     }
-                }
-            }
-        }
-    }
-
-    private static void secondaryTerrain (PsuedoMap map) {
-        PsuedoMap secondaryMap = new PsuedoMap(map.rows, map.cols);
-        float[][] whiteNoice = PerlinNoiseGenerator.generateWhiteNoise(secondaryMap.cols,secondaryMap.rows);
-        float[][] perlinNoice = PerlinNoiseGenerator.generatePerlinNoise(whiteNoice, Settings.OCTAVE_COUNT);
-        ArrayList<PsuedoTile> mapRow = new ArrayList<>();
-        int currentRow = 0;
-
-        for(int row = 0; row < map.rows; row ++) {
-            for (int col = 0; col < map.cols; col++) {
-
-                PsuedoTile tile = new PsuedoTile(perlinNoice[col][row],col,row, Settings.SECONDARY_AMOUNT);
-
-                if(currentRow == row){
-                    mapRow.add(tile);
-                    if (row == secondaryMap.rows - 1 && col == secondaryMap.cols - 1){
-                        secondaryMap.tiles.add(mapRow);
-                    }
-                }
-                else {
-                    currentRow = row;
-                    secondaryMap.tiles.add(mapRow);
-                    mapRow = new ArrayList<PsuedoTile>();
-                    mapRow.add(tile);
-                }
-            }
-        }
-        smoothen(secondaryMap);
-        PsuedoTile baseMapTile, secondaryMapTile;
-        for(int row = 0; row < map.rows; row ++) {
-            for (int col = 0; col < map.cols; col++) {
-
-                baseMapTile = map.getTile(row,col);
-                secondaryMapTile = secondaryMap.getTile(row,col);
-
-                if ((baseMapTile.tier > 2) && (secondaryMapTile.secondaryTier == 1)) {
-                    baseMapTile.secondary = true;
                 }
             }
         }
