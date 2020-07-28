@@ -1,6 +1,6 @@
-package components.tile.tilecoding.psuedoComponents;
+package components.map.tilecoding.psuedoComponents;
 
-import components.tile.tilecoding.logic.BitmaskLogic;
+import components.map.tilecoding.logic.BitmaskLogic;
 
 import java.util.ArrayList;
 

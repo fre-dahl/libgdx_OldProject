@@ -1,4 +1,4 @@
-package components.tile.tilecoding.psuedoComponents;
+package components.map.tilecoding.psuedoComponents;
 
 public class PsuedoTile {
 

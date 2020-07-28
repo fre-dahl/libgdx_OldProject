@@ -1,10 +1,9 @@
-package components.tile;
+package components.map;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import components.Biome.BIOME;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Disposable;
-import graphics.culling.Section;
 import graphics.drwdat.DrwRegion;
 
 public class Tile implements Disposable {

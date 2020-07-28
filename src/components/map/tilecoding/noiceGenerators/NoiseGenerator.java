@@ -1,4 +1,4 @@
-package components.tile.tilecoding.noiceGenerators;
+package components.map.tilecoding.noiceGenerators;
 
 
 import java.util.Random;

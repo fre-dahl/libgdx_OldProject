@@ -1,11 +1,13 @@
-package graphics.culling;
+package components.map.culling;
 
-import graphics.culling.Dimensions.TILE;
-import graphics.culling.Dimensions.MAP;
+import components.map.Zone;
+import components.map.culling.Dimensions.TILE;
+import components.map.culling.Dimensions.MAP;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import components.tile.Tile;
-import components.tile.TileMap;
+import components.map.Tile;
+import components.map.TileMap;
+import components.map.Section;
 import main.Settings;
 
 import java.util.ArrayList;

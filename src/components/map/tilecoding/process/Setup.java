@@ -1,14 +1,14 @@
-package components.tile.tilecoding.process;
+package components.map.tilecoding.process;
 
-import components.tile.Tile;
+import components.map.Tile;
 import components.Biome;
-import components.tile.TileMap;
-import graphics.culling.CullingSetup;
-import graphics.culling.Dimensions;
+import components.map.TileMap;
+import components.map.culling.CullingSetup;
+import components.map.culling.Dimensions;
 import main.Settings;
 import graphics.Assets;
-import components.tile.tilecoding.psuedoComponents.PsuedoMap;
-import components.tile.tilecoding.psuedoComponents.PsuedoTile;
+import components.map.tilecoding.psuedoComponents.PsuedoMap;
+import components.map.tilecoding.psuedoComponents.PsuedoTile;
 
 import java.util.ArrayList;
 

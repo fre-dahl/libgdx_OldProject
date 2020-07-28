@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Disposable;
-import graphics.culling.Section;
+import components.map.Section;
 import graphics.drwdat.abstr.DrwDat;
 import graphics.shaders.ShaderHandler;
 import main.Settings;
@@ -23,6 +23,7 @@ public class DrwHandler implements Disposable {
     public static DrwHandler instance = new DrwHandler();
     private final Matrix4 originalMatrixTemp = new Matrix4();
     private static final Matrix4 IDENTITY = new Matrix4();
+    private Matrix4 screenMatrix;
     private Map<Integer, ArrayList<DrwDat>> layers;
     private ShaderHandler shaderHandler;
     private OrthographicCamera camera;
@@ -38,6 +39,7 @@ public class DrwHandler implements Disposable {
         camera = Cam.instance.getCamera();
         fbo = new FrameBuffer(Pixmap.Format.RGBA8888, Settings.SCREEN_W,Settings.SCREEN_H,false);
         batch = new SpriteBatch();
+        screenMatrix = new Matrix4(batch.getProjectionMatrix().setToOrtho2D(0, 0, Settings.SCREEN_W, Settings.SCREEN_H));
         shaderHandler = new ShaderHandler(batch);
         layers = new HashMap<>();
         layers.put(0,new ArrayList<>());
@@ -99,6 +101,10 @@ public class DrwHandler implements Disposable {
                     dat.draw(batch);
                 }
             }
+        }
+        else if (layer == 7) {
+            batch.setProjectionMatrix(screenMatrix);
+            batch.draw(Assets.instance.assetHUD.hudTest,0,0,1280,110);
         }
         else {
             for (DrwDat dat: layers.get(layer)) {

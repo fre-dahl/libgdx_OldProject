@@ -1,9 +1,8 @@
-package graphics.culling;
+package components.map;
 
 import camera.Cam;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
-import utils.Counter;
 
 import java.util.ArrayList;
 

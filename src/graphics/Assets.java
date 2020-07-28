@@ -24,6 +24,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetClouds assetClouds;
     public AssetRipples assetRipples;
     public AssetKnight assetKnight;
+    public AssetHUD assetHUD;
 
 
     private Assets() { }
@@ -48,6 +49,7 @@ public class Assets implements Disposable, AssetErrorListener {
         if (!atlas.fileName.equals(currentAtlas)) {
             loadAtlas(atlas);
             TextureAtlas textureAtlas = assetManager.get(atlas);
+            assetHUD = new AssetHUD(textureAtlas);
             switch (biome.getBiome()) {
                 case LAKES:
                     assetTiles = new AssetLakes(textureAtlas);
@@ -91,12 +93,24 @@ public class Assets implements Disposable, AssetErrorListener {
         Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", throwable);
     }
 
+    public class AssetHUD {
+
+        public final TextureRegion hudTest;
+        public final TextureRegion white;
+
+        public AssetHUD (TextureAtlas atlas) {
+            hudTest = new TextureRegion(atlas.findRegion("hud_test"),0,0,640,55);
+            white = new TextureRegion(atlas.findRegion("white_pixel"));
+        }
+    }
+
     public class AssetKnight {
 
         public final Array<Array<TextureRegion>> knight_idle;
         public final Array<Array<TextureRegion>> knight_walk;
         public final Animation<TextureRegion> knight_explode;
         public final TextureRegion knight_shadow;
+        public final TextureRegion knight_select;
 
         public AssetKnight(TextureAtlas atlas) {
             knight_idle = split(atlas.findRegion("knight_yellow_idle"),16,21);
@@ -104,7 +118,9 @@ public class Assets implements Disposable, AssetErrorListener {
             TextureRegion explode = atlas.findRegion("knight_yellow_explode");
             knight_explode = new Animation<TextureRegion>(0.06f,getKeyFrames(explode,16), Animation.PlayMode.NORMAL);
             knight_shadow = new TextureRegion(atlas.findRegion("knight_yellow_shadow"),0,0,16,8);
+            knight_select = new TextureRegion(atlas.findRegion("knight_yellow_selection"),0,0,16,8);
             bleedFix(knight_shadow);
+            bleedFix(knight_select);
         }
 
         private Array<Array<TextureRegion>> split(TextureRegion region, int width, int height) {

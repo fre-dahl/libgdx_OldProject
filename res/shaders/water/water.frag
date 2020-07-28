@@ -16,7 +16,7 @@ varying vec2 v_texCoords;
 
 const float VIGNETTE_RADIUS_OUTER = 0.7;
 const float VIGNETTE_RADIUS_INNER = 0.4;
-const float COLOR_INTENSITY = 0.5;
+const float COLOR_INTENSITY = 0.4;
 
 #FUNCTION_INSERT
 

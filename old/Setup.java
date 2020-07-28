@@ -1,9 +1,9 @@
 package old;
 
 import components.BaseTile;
-import components.tile.tilecoding.noiceGenerators.PerlinNoiseGenerator;
-import components.tile.tilecoding.psuedoComponents.PsuedoMap;
-import components.tile.tilecoding.psuedoComponents.PsuedoTile;
+import components.map.tilecoding.noiceGenerators.PerlinNoiseGenerator;
+import components.map.tilecoding.psuedoComponents.PsuedoMap;
+import components.map.tilecoding.psuedoComponents.PsuedoTile;
 import java.util.ArrayList;
 
 public class Setup {

@@ -1,4 +1,4 @@
-package graphics.culling;
+package components.map.culling;
 
 public class Dimensions {
 

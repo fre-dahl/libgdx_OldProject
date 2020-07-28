@@ -1,4 +1,4 @@
-package components.tile.tilecoding.noiceGenerators;
+package components.map.tilecoding.noiceGenerators;
 
 /**
  * K.jpg's OpenSimplex 2, smooth variant ("SuperSimplex")

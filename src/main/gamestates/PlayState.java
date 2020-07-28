@@ -36,8 +36,8 @@ public class PlayState extends GameState {
 
     @Override
     public void update(float dt) {
-        super.update(dt);
         world.update(dt);
+        super.update(dt);
         FocusPoint.follow(dt);
     }
 

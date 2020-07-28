@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
-import graphics.culling.Section;
+import components.map.culling.Section;
 import graphics.drwdat.abstr.DrwDat;
 import main.Settings;
 

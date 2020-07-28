@@ -2,7 +2,7 @@ package components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import components.tile.tilecoding.psuedoComponents.PsuedoTile;
+import components.map.tilecoding.psuedoComponents.PsuedoTile;
 
 
 public class Biome {

@@ -1,7 +1,7 @@
 package graphics.drwdat.abstr;
 
 
-import graphics.culling.Section;
+import components.map.Section;
 
 public abstract class DrwCulling extends DrwDat{
 
