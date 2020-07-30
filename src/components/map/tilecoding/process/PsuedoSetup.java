@@ -1,10 +1,10 @@
-package components.tile.tilecoding.process;
+package components.map.tilecoding.process;
 
 import components.Biome;
 import main.Settings;
-import components.tile.tilecoding.noiceGenerators.PerlinNoiseGenerator;
-import components.tile.tilecoding.psuedoComponents.PsuedoMap;
-import components.tile.tilecoding.psuedoComponents.PsuedoTile;
+import components.map.tilecoding.noiceGenerators.PerlinNoiseGenerator;
+import components.map.tilecoding.psuedoComponents.PsuedoMap;
+import components.map.tilecoding.psuedoComponents.PsuedoTile;
 import java.util.ArrayList;
 import java.util.Random;
 

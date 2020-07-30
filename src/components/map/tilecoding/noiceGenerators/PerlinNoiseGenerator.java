@@ -1,4 +1,4 @@
-package components.tile.tilecoding.noiceGenerators;
+package components.map.tilecoding.noiceGenerators;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.MathUtils;

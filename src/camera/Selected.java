@@ -1,7 +1,7 @@
 package camera;
 
-import graphics.culling.Section;
-import graphics.culling.Zone;
+import components.map.Section;
+import components.map.Zone;
 
 public class Selected {
 

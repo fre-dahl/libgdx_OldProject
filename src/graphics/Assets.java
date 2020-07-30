@@ -23,7 +23,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetTiles assetTiles;
     public AssetClouds assetClouds;
     public AssetRipples assetRipples;
-    public AssetKnight assetKnight;
+    public AssetUnits assetUnits;
+    public AssetHUD assetHUD;
 
 
     private Assets() { }
@@ -48,6 +49,7 @@ public class Assets implements Disposable, AssetErrorListener {
         if (!atlas.fileName.equals(currentAtlas)) {
             loadAtlas(atlas);
             TextureAtlas textureAtlas = assetManager.get(atlas);
+            assetHUD = new AssetHUD(textureAtlas);
             switch (biome.getBiome()) {
                 case LAKES:
                     assetTiles = new AssetLakes(textureAtlas);
@@ -56,7 +58,7 @@ public class Assets implements Disposable, AssetErrorListener {
                     assetTiles = new AssetLakes(textureAtlas);
                     assetClouds = new AssetClouds(textureAtlas);
                     assetRipples = new AssetRipples(textureAtlas);
-                    assetKnight = new AssetKnight(textureAtlas);
+                    assetUnits = new AssetUnits(textureAtlas);
                     break;
                 default:
                     assetTiles = new AssetLakes(textureAtlas);
@@ -70,7 +72,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetTiles = null;
         assetClouds = null;
         assetRipples = null;
-        assetKnight = null;
+        assetUnits = null;
         currentAtlas = "";
         assetManager.dispose();
     }
@@ -91,20 +93,49 @@ public class Assets implements Disposable, AssetErrorListener {
         Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", throwable);
     }
 
-    public class AssetKnight {
+    public class AssetHUD {
+
+        public final TextureRegion hudTest;
+        public final TextureRegion white;
+
+        public AssetHUD (TextureAtlas atlas) {
+            hudTest = new TextureRegion(atlas.findRegion("hud_test"),0,0,640,55);
+            white = new TextureRegion(atlas.findRegion("white_pixel"));
+        }
+    }
+
+    public class AssetUnits {
 
         public final Array<Array<TextureRegion>> knight_idle;
         public final Array<Array<TextureRegion>> knight_walk;
         public final Animation<TextureRegion> knight_explode;
-        public final TextureRegion knight_shadow;
+        public final TextureRegion human_friendly_selected;
+        public final TextureRegion human_neutral_selected;
+        public final TextureRegion human_hostile_selected;
+        public final TextureRegion human_friendly_hovered;
+        public final TextureRegion human_neutral_hovered;
+        public final TextureRegion human_hostile_hovered;
+        public final TextureRegion human_shadow;
 
-        public AssetKnight(TextureAtlas atlas) {
+        public AssetUnits(TextureAtlas atlas) {
             knight_idle = split(atlas.findRegion("knight_yellow_idle"),16,21);
             knight_walk = split(atlas.findRegion("knight_yellow_walk"),16,21);
             TextureRegion explode = atlas.findRegion("knight_yellow_explode");
             knight_explode = new Animation<TextureRegion>(0.06f,getKeyFrames(explode,16), Animation.PlayMode.NORMAL);
-            knight_shadow = new TextureRegion(atlas.findRegion("knight_yellow_shadow"),0,0,16,8);
-            bleedFix(knight_shadow);
+            human_friendly_selected = new TextureRegion(atlas.findRegion("human_friendly_selected"),0,0,32,16);
+            human_neutral_selected = new TextureRegion(atlas.findRegion("human_neutral_selected"),0,0,32,16);
+            human_hostile_selected = new TextureRegion(atlas.findRegion("human_hostile_selected"),0,0,32,16);
+            human_friendly_hovered = new TextureRegion(atlas.findRegion("human_friendly_hover"),0,0,32,16);
+            human_neutral_hovered = new TextureRegion(atlas.findRegion("human_neutral_hover"),0,0,32,16);
+            human_hostile_hovered = new TextureRegion(atlas.findRegion("human_hostile_hover"),0,0,32,16);
+            human_shadow = new TextureRegion(atlas.findRegion("human_shadow"),0,0,32,16);
+            bleedFix(human_friendly_selected);
+            bleedFix(human_neutral_selected);
+            bleedFix(human_hostile_selected);
+            bleedFix(human_friendly_hovered);
+            bleedFix(human_neutral_hovered);
+            bleedFix(human_hostile_hovered);
+            bleedFix(human_shadow);
         }
 
         private Array<Array<TextureRegion>> split(TextureRegion region, int width, int height) {
@@ -137,8 +168,8 @@ public class Assets implements Disposable, AssetErrorListener {
             }
             return keyframes;
         }
-
     }
+
 
     public class AssetRipples {
 

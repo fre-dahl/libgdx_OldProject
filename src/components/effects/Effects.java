@@ -9,12 +9,17 @@ import graphics.drwdat.abstr.DrwPool;
 
 public class Effects implements Disposable {
 
-    // a effect don't need to check graphics.culling. The object instancing it will.
+    // a effect don't need to check components.map.culling. The object instancing it will.
     public static Effects instance = new Effects();
     public Array<Effect> current;
     public Factory factory;
 
     private Effects() {
+        current = new Array<>();
+        factory = new Factory();
+    }
+
+    public void newInstance() {
         current = new Array<>();
         factory = new Factory();
     }
@@ -95,7 +100,7 @@ public class Effects implements Disposable {
         private final DrwPool<Effect> knightExplodePool = new DrwPool<Effect>() {
             @Override
             protected Effect newObject() {
-                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetKnight.knight_explode);
+                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetUnits.knight_explode);
             }
         };
     }

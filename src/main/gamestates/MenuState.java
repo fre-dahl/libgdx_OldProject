@@ -32,7 +32,7 @@ public class MenuState extends GameState {
 
     @Override
     public void update(float dt) {
-        super.update(dt);
+        super.update(dt); // ha denne etter du oppdaterer annet
     }
 
     @Override

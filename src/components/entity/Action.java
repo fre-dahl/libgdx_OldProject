@@ -17,6 +17,8 @@ public class Action implements ActionPoolItem {
     private boolean complete;
     private static final int ZERO_MARGIN = 4;
 
+    // Simple Actions
+
     public Action(Entity actor, Vector2 targetPosition) { // target gets created in pool newObject().
         this.targetPosition = targetPosition;
         this.actor = actor;
@@ -40,6 +42,23 @@ public class Action implements ActionPoolItem {
         }
     }
 
+    // Abilities
+
+    public Action(Entity actor, Ability ability) {
+        this.intent = Intent.USE_ABILITY_SELF;
+        targetPosition = new Vector2(actor.position.x, actor.position.y);
+        actor.targeted(actor,Intent.USE_ABILITY_SELF);
+    }
+
+    public Action(Entity actor, Vector2 targetPosition, Ability ability) {
+        this.intent = Intent.USE_ABILITY_POSITION;
+    }
+
+    public Action(Entity actor, WorldObject targetObject, Ability ability) {
+        this.intent = Intent.USE_ABILITY_TARGET;
+    }
+
+
     public void execute(float dt) {
 
         if(complete) {
@@ -56,7 +75,7 @@ public class Action implements ActionPoolItem {
                 switch(intent) {
                     case MOVE_TO_WORLD_OBJECT: complete = true; break;
                     case INTERACT_WITH: targetObject.interaction(actor); break; // set action complete in targetObject
-                    case ATTACK: targetObject.attacked(actor); break; // set action complete in targetObject
+                    case DEFAULT_ATTACK: targetObject.attacked(actor); break; // set action complete in targetObject
                 }
             }
             else{
@@ -147,7 +166,10 @@ public class Action implements ActionPoolItem {
         WAIT,
         PATROL,
         INTERACT_WITH,
-        ATTACK
+        DEFAULT_ATTACK,
+        USE_ABILITY_SELF,
+        USE_ABILITY_TARGET,
+        USE_ABILITY_POSITION
     }
 
     public interface Interactable {

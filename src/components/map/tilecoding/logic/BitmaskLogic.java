@@ -1,4 +1,4 @@
-package components.tile.tilecoding.logic;
+package components.map.tilecoding.logic;
 
 import java.util.Map;
 

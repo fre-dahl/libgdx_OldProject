@@ -4,17 +4,19 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import components.GameWorld;
 import components.entity.Action.Intent;
-import components.tile.Tile;
-import components.tile.TileMap;
-import graphics.culling.Section;
-import ui.UI.Selectable;
+import components.map.Tile;
+import components.map.Section;
+import ui.UI.SelectableUnit;
 
-public abstract class Entity extends WorldObject implements Selectable {
+public abstract class Entity extends WorldObject implements SelectableUnit {
 
-    State state;
-    TileMap map;
+
+    GameWorld world;
     Type type;
+    State state;
+    Disposition disposition;
     Tile currentTile;
     Section currentSection;
     Vector2 texturePosition;
@@ -27,19 +29,23 @@ public abstract class Entity extends WorldObject implements Selectable {
     float moveSpeed = 50;
 
     // Flags
+    boolean inView;
+    boolean inViewList;
+    boolean playerUnit;
+    boolean hostile;
     boolean moving; // set in actions
     boolean nearWater; // set in setCurrentTile
     boolean inWater; // later
-    boolean selected;
+    public boolean selected;
     boolean hovered;
 
-    public Entity(Type type, TileMap map, float x, float y) {
-        this.map = map;
+    public Entity(Type type, GameWorld world, float x, float y) {
+        this.world = world;
         this.type = type;
         actionQueue = new Array<>();
         velocity = new Vector2();
         position = new Vector2(x,y);
-        updateGridPos(); // updated in actions in update
+        updateGridPos();
         texturePosition = new Vector2(x - type.w/2 , y);
         centerPosition = new Vector2(x, y + type.h/2);
         selectBox = new Rectangle(x - type.w/2 , y, type.w * scale, type.h * scale);
@@ -49,11 +55,9 @@ public abstract class Entity extends WorldObject implements Selectable {
 
     public abstract void update(float dt);
 
-    public enum State {
-        IDLE,
-        WALK,
-        ATTACK
-    }
+    public enum State {IDLE, WALK, ATTACK}
+
+    public enum Disposition {FRIENDLY, NEUTRAL, HOSTILE}
 
     public enum Type {
 
@@ -67,6 +71,8 @@ public abstract class Entity extends WorldObject implements Selectable {
         public float getW() {return w;}
         public float getH() {return h;}
     }
+
+
 
     private static ActionPool actionPool = new ActionPool() {
 
@@ -114,9 +120,11 @@ public abstract class Entity extends WorldObject implements Selectable {
     };
 
     public void updateGridPos() {
-        map.setGridPositions(this);
+        // updated in actions in update
+        world.map.updateMapPositions(this);
         nearWater = currentTile.reflects();
     }
+
     public void moveTo(Vector2 target) { actionPool.initMove(this, target);}
 
     public ActionPool getActionPool() {return actionPool; }
