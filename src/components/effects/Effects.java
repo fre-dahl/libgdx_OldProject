@@ -100,7 +100,7 @@ public class Effects implements Disposable {
         private final DrwPool<Effect> knightExplodePool = new DrwPool<Effect>() {
             @Override
             protected Effect newObject() {
-                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetKnight.knight_explode);
+                return new Effect(Type.KNIGHT_EXPLODE,Assets.instance.assetUnits.knight_explode);
             }
         };
     }

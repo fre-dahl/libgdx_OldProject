@@ -15,7 +15,7 @@ import input.Mouse;
 import main.Settings;
 import graphics.DrwHandler;
 import components.map.tilecoding.process.Setup;
-import ui.GameUI;
+import ui.hud.hud2.GameUI;
 
 
 public class GameWorld implements Disposable {
@@ -58,7 +58,12 @@ public class GameWorld implements Disposable {
         Effects.instance.newInstance();
         
         for (int i = 0; i < 50; i++) {
-            Knight knight = new Knight(Entity.Type.KNIGHT, this, FocusPoint.position.x + i*32*Settings.SCALE,FocusPoint.position.y);
+            Knight knight;
+            if (i == 40) {
+                knight = new Knight(Entity.Type.KNIGHT, Entity.Disposition.HOSTILE,this, FocusPoint.position.x + i*32*Settings.SCALE,FocusPoint.position.y);
+            }
+
+            else {knight = new Knight(Entity.Type.KNIGHT, Entity.Disposition.FRIENDLY,this, FocusPoint.position.x + i*32*Settings.SCALE,FocusPoint.position.y);}
             knights.add(knight);
         }
 

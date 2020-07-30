@@ -1,17 +1,18 @@
 package ui.hud.hud2;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import ui.UI;
 
-public class GameUI2 extends UI {
+public class GameUI extends UI {
 
     public static boolean mouseOnHud;
 
     private HUD hud;
-    private UnitManager unitManager;
+    private UnitSelection unitManager;
 
-    public GameUI2() {
-        unitManager = new UnitManager(this);
+    public GameUI() {
+        unitManager = new UnitSelection(this);
         hud = new HUD(this);
     }
 
@@ -19,7 +20,7 @@ public class GameUI2 extends UI {
         return hud;
     }
 
-    public UnitManager getUnitManager() {
+    public UnitSelection getUnitManager() {
         return unitManager;
     }
 
@@ -42,5 +43,20 @@ public class GameUI2 extends UI {
     @Override
     public void leftclick_W(Vector2 pos) {
         if (!mouseOnHud) unitManager.leftClick(pos);
+    }
+
+    @Override
+    public void rightclick_S(Vector2 pos) {
+
+    }
+
+    @Override
+    public void rightclick_W(Vector2 pos) {
+        if (!mouseOnHud) unitManager.rightClick(pos);
+    }
+
+    @Override
+    public void l_selectBox_W(Rectangle box) {
+        unitManager.selectBox(box);
     }
 }

@@ -6,42 +6,42 @@ filter: Nearest,Nearest
 repeat: none
 baseTile_water
   rotate: false
-  xy: 544, 953
+  xy: 448, 857
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_grass
   rotate: false
-  xy: 416, 857
+  xy: 416, 841
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_grassLight
   rotate: false
-  xy: 640, 976
+  xy: 128, 457
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_snow
   rotate: false
-  xy: 992, 1008
+  xy: 256, 553
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_waterDeep
   rotate: false
-  xy: 1008, 1008
+  xy: 672, 976
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basetile_waterShallow
   rotate: false
-  xy: 384, 745
+  xy: 544, 937
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -60,6 +60,55 @@ hud_test
   orig: 640, 55
   offset: 0, 0
   index: -1
+human_friendly_hover
+  rotate: false
+  xy: 0, 217
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_friendly_selected
+  rotate: false
+  xy: 992, 992
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_hostile_hover
+  rotate: false
+  xy: 640, 976
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_hostile_selected
+  rotate: false
+  xy: 416, 857
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_neutral_hover
+  rotate: false
+  xy: 544, 953
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_neutral_selected
+  rotate: false
+  xy: 992, 1008
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+human_shadow
+  rotate: false
+  xy: 384, 745
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
 knight_yellow_explode
   rotate: false
   xy: 0, 761
@@ -76,14 +125,14 @@ knight_yellow_idle
   index: -1
 knight_yellow_selection
   rotate: false
-  xy: 128, 465
+  xy: 384, 737
   size: 16, 8
   orig: 16, 8
   offset: 0, 0
   index: -1
 knight_yellow_shadow
   rotate: false
-  xy: 0, 225
+  xy: 576, 961
   size: 16, 8
   orig: 16, 8
   offset: 0, 0
@@ -160,7 +209,7 @@ tileset_waterShallow
   index: -1
 white_pixel
   rotate: false
-  xy: 256, 568
+  xy: 640, 975
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

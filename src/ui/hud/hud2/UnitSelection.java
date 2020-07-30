@@ -1,40 +1,49 @@
 package ui.hud.hud2;
 
+import camera.FocusPoint;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import components.entity.Entity.Disposition;
 import ui.UI.SelectableUnit;
+import java.util.HashMap;
+import java.util.Map;
 
-public class UnitManager {
+public class UnitSelection {
 
+    public static int activeUnits;
     public static final int NONE = 0;
-
     public static final int SINGLE_UNIT = 1;
     public static final int UNIT_GROUP = 2;
-    public static int activeUnits;
 
-    public static final int FRIENDLY = 1;
-    public static final int NEUTRAL = 2;
-    public static final int HOSTILE = 3;
-    public static int hoveredUnitDisposition;
-
-    private Array<SelectableUnit> unitsInView;
+    private Map<Disposition,Array<SelectableUnit>> unitsInView;
     private Array<SelectableUnit> selectedUnits;
     private SelectableUnit hoveredUnit;
 
-    private GameUI2 userInterface;
+    private GameUI userInterface;
 
-    public UnitManager(GameUI2 userInterface) {
+    public UnitSelection(GameUI userInterface) {
         this.userInterface = userInterface;
-        selectedUnits = new Array<>();
-        unitsInView = new Array<>();
-    }
-
-    public Array<SelectableUnit> getUnitsInView() {
-        return unitsInView;
+        unitsInView = new HashMap<>();
+        unitsInView.put(Disposition.FRIENDLY,new Array<>());
+        unitsInView.put(Disposition.NEUTRAL,new Array<>());
+        unitsInView.put(Disposition.HOSTILE,new Array<>());
+        selectedUnits = new Array<>(); // Only "friendly" can have multiple selected
+        activeUnits = NONE; // just for clarity
     }
 
     public Array<SelectableUnit> getSelectedUnits() {
         return selectedUnits;
+    }
+
+    public void addUnit(SelectableUnit unit) {
+        // i don't want to check for null every time
+        unitsInView.get(unit.getDisposition()).add(unit);
+    }
+
+    public void removeUnit(SelectableUnit unit) {
+        // i don't want to check for null every time
+        unitsInView.get(unit.getDisposition()).removeValue(unit,true);
     }
 
     public void hover(Vector2 pos) {
@@ -47,11 +56,25 @@ public class UnitManager {
             }
         }
         else {
-            for (SelectableUnit unit : unitsInView) {
-                if (unit.getBox().contains(pos)){
+            for (SelectableUnit unit : unitsInView.get(Disposition.FRIENDLY)) {
+                if (unit.getBox().contains(pos)) {
                     hoveredUnit = unit;
                     unit.hovered();
-                    break;
+                    return;
+                }
+            }
+            for (SelectableUnit unit : unitsInView.get(Disposition.NEUTRAL)) {
+                if (unit.getBox().contains(pos)) {
+                    hoveredUnit = unit;
+                    unit.hovered();
+                    return;
+                }
+            }
+            for (SelectableUnit unit : unitsInView.get(Disposition.HOSTILE)) {
+                if (unit.getBox().contains(pos)) {
+                    hoveredUnit = unit;
+                    unit.hovered();
+                    return;
                 }
             }
         }
@@ -59,12 +82,13 @@ public class UnitManager {
 
     public void leftClick(Vector2 pos) {
 
-        // can change the order of the if statements
+        // can change the order of the if statements to NONE first
         if (activeUnits == UNIT_GROUP) {
             if (hoveredUnit == null) {
                 for (SelectableUnit unit : selectedUnits) {
                     unit.deSelected();
                 }
+                userInterface.getHud().setActiveUnit(null); // set active unit = null
                 selectedUnits.clear();
                 activeUnits = NONE;
             }
@@ -128,7 +152,54 @@ public class UnitManager {
         // else the overall healt % + num units / overall moral and average level is shown.
         // selecting a unit icon, selects the unit.
 
+        if (activeUnits == NONE) FocusPoint.position.set(pos);
 
+        else if (activeUnits == SINGLE_UNIT) {
+            SelectableUnit unit = selectedUnits.first();
+            if (unit.getDisposition() == Disposition.FRIENDLY) unit.moveTo(pos);
+        }
+
+        else {
+            for (SelectableUnit unit : selectedUnits) {
+                unit.moveTo(pos);
+                //unit.useAbility(unit.activeAbility(), pos)
+                //unit.useAbility(ability, target); check in unit method if ability is legal
+            }
+        }
+
+
+    }
+
+    public void selectBox(Rectangle box) {
+        // selected units should be either 0 if selectbox click was on empty space
+        // or 1 if clicked on Unit. But this unit could be moving. but never > 1
+        if (activeUnits != NONE) {
+            for (SelectableUnit unit : selectedUnits) unit.deSelected();
+            selectedUnits.clear();
+        }// selected units should be clear atp
+        int unitsSelected = 0;
+        for (SelectableUnit unit : unitsInView.get(Disposition.FRIENDLY)) {
+            if (box.overlaps(unit.getBox())) {
+                unit.selected();
+                unitsSelected++;
+                selectedUnits.add(unit);
+            }
+        }
+        if (unitsSelected == 0) {
+            if (activeUnits != NONE) {
+                userInterface.getHud().setActiveUnit(null);
+                activeUnits = NONE;
+            }
+        }
+        else if (unitsSelected == 1) {
+            // Gets checked in HUD if friendly, but that is redundant. Could fix this later.
+            userInterface.getHud().setActiveUnit(selectedUnits.first());
+            activeUnits = SINGLE_UNIT;
+        }
+        else { // unitsSelected > 1
+            userInterface.getHud().setActiveUnits(selectedUnits);
+            activeUnits = UNIT_GROUP;
+        }
     }
 
 

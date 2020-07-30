@@ -20,15 +20,15 @@ public class Knight extends Entity {
     float waterRippleTimer;
 
 
-    public Knight(Type type, GameWorld world, float x, float y) {
+    public Knight(Type type, Disposition disposition, GameWorld world, float x, float y) {
         super(type,world,x,y);
         playerUnit = true;
-        hostile = false;
+        this.disposition = disposition;
         animations = new AnimationSet();
-        animations.newAnimations(State.IDLE, Assets.instance.assetKnight.knight_idle,0.2f);
-        animations.newAnimations(State.WALK,Assets.instance.assetKnight.knight_walk,0.1f);
+        animations.newAnimations(State.IDLE, Assets.instance.assetUnits.knight_idle,0.2f);
+        animations.newAnimations(State.WALK,Assets.instance.assetUnits.knight_walk,0.1f);
         drwBody = new DrwRegion(animations.getInitial(State.IDLE),x-type.getW()/2,y,type.getW() * Settings.SCALE,type.getH() * Settings.SCALE,(byte)5);
-        drwShadow = new DrwRegion(Assets.instance.assetKnight.knight_shadow,x,y,type.getW()*Settings.SCALE,8*Settings.SCALE,(byte)4);
+        drwShadow = new DrwRegion(Assets.instance.assetUnits.human_shadow,x,y,type.getW()*Settings.SCALE,8*Settings.SCALE,(byte)4);
         drwReflection = new DrwExtra(drwBody.getRegion(), drwBody.getX(), drwBody.getY(), drwBody.getW(), drwBody.getH(),(byte)1,true);
         drwReflection.setAlpha(0.5f);
         state = State.IDLE;
@@ -43,7 +43,7 @@ public class Knight extends Entity {
         if (actionQueue.notEmpty()) actionQueue.first().execute(dt);
         if (inView) {
             if (!inViewList) {
-                world.gameUI.unitsInView.add(this);
+                world.gameUI.getUnitManager().addUnit(this);
                 inViewList = true;
             }
             drwBody.setRender(true);
@@ -67,7 +67,7 @@ public class Knight extends Entity {
         }
         else {
             if (inViewList) {
-                world.gameUI.unitsInView.removeValue(this,true);
+                world.gameUI.getUnitManager().removeUnit(this);
                 inViewList = false;
             }
             drwBody.setRender(false);
@@ -87,25 +87,47 @@ public class Knight extends Entity {
 
     @Override
     public void selected() {
-        drwShadow.setRegion(Assets.instance.assetKnight.knight_select);
+        switch (disposition) {
+            case FRIENDLY:
+                drwShadow.setRegion(Assets.instance.assetUnits.human_friendly_selected);
+                break;
+            case NEUTRAL:
+                drwShadow.setRegion(Assets.instance.assetUnits.human_neutral_selected);
+                break;
+            case HOSTILE:
+                drwShadow.setRegion(Assets.instance.assetUnits.human_hostile_selected);
+                break;
+        }
         selected = true;
     }
 
     @Override
     public void deSelected() {
-        drwShadow.setRegion(Assets.instance.assetKnight.knight_shadow);
+        drwShadow.setRegion(Assets.instance.assetUnits.human_shadow);
         selected = false;
     }
 
     @Override
     public void hovered() {
-        drwShadow.setRegion(Assets.instance.assetKnight.knight_select);
+        if (!selected) {
+            switch (disposition) {
+                case FRIENDLY:
+                    drwShadow.setRegion(Assets.instance.assetUnits.human_friendly_hovered);
+                    break;
+                case NEUTRAL:
+                    drwShadow.setRegion(Assets.instance.assetUnits.human_neutral_hovered);
+                    break;
+                case HOSTILE:
+                    drwShadow.setRegion(Assets.instance.assetUnits.human_hostile_hovered);
+                    break;
+            }
+        }
         hovered = true;
     }
 
     @Override
     public void deHovered() {
-        drwShadow.setRegion(Assets.instance.assetKnight.knight_shadow);
+        if (!selected) drwShadow.setRegion(Assets.instance.assetUnits.human_shadow);
         hovered = false;
     }
 
