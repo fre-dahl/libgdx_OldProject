@@ -10,12 +10,12 @@ import components.map.Tile;
 import components.map.Section;
 import ui.UI.SelectableUnit;
 
-public abstract class Entity extends WorldObject implements SelectableUnit {
+public abstract class Entity extends WorldObject implements SelectableUnit<Entity> {
 
 
     GameWorld world;
     Type type;
-    State state;
+    AnimationState animationState;
     Disposition disposition;
     Tile currentTile;
     Section currentSection;
@@ -31,7 +31,6 @@ public abstract class Entity extends WorldObject implements SelectableUnit {
     // Flags
     boolean inView;
     boolean inViewList;
-    boolean playerUnit;
     boolean hostile;
     boolean moving; // set in actions
     boolean nearWater; // set in setCurrentTile
@@ -55,7 +54,7 @@ public abstract class Entity extends WorldObject implements SelectableUnit {
 
     public abstract void update(float dt);
 
-    public enum State {IDLE, WALK, ATTACK}
+    public enum AnimationState {IDLE, WALK, ATTACK}
 
     public enum Disposition {FRIENDLY, NEUTRAL, HOSTILE}
 
@@ -85,7 +84,7 @@ public abstract class Entity extends WorldObject implements SelectableUnit {
 
         @Override
         public void initMove(Entity actor, Vector2 target) {
-
+            
             newObject = false;
             intent = Intent.MOVE_TO_POSITION;
             this.actor = actor;
@@ -126,6 +125,14 @@ public abstract class Entity extends WorldObject implements SelectableUnit {
     }
 
     public void moveTo(Vector2 target) { actionPool.initMove(this, target);}
+
+    public void moveTo(Vector2 target, boolean clearQueue) {
+        if (clearQueue) {
+            getActionPool().freeAll(actionQueue);
+            actionQueue.clear();
+        }
+        actionPool.initMove(this, target);
+    }
 
     public ActionPool getActionPool() {return actionPool; }
 

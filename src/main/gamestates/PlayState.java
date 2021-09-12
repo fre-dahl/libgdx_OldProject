@@ -36,9 +36,10 @@ public class PlayState extends GameState {
 
     @Override
     public void update(float dt) {
-        world.update(dt);
+        if(!paused) world.update(dt);
         super.update(dt);
         FocusPoint.follow(dt);
+
     }
 
     @Override
@@ -55,7 +56,14 @@ public class PlayState extends GameState {
 
         if (GameKeys.isPressed(GameKeys.SPACE)) world.newArea();
         if (GameKeys.isPressed(GameKeys.PAUSE)) paused =! paused;
-        if (GameKeys.isPressed(GameKeys.SHIFT)) Screenshot.snap();
+        //if (GameKeys.isPressed(GameKeys.SHIFT)) Screenshot.snap();
+        if (GameKeys.isPressed(GameKeys.SHIFT)) {
+            if (world.gameUI.getUnitManager().getSelectedUnits().isEmpty()) {
+                world.spawnKnight();
+            }
+
+            else world.explodeSelectedKnights();
+        }
     }
 
     @Override

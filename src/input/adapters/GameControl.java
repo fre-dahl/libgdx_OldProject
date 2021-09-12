@@ -44,6 +44,9 @@ public class GameControl extends Control {
             case Input.Keys.P:
                 GameKeys.setKey(GameKeys.PAUSE, true);
                 break;
+            case Input.Keys.CONTROL_LEFT:
+                GameKeys.setKey(GameKeys.CONTROL,true);
+                break;
         }
         return true;
     }
@@ -81,6 +84,9 @@ public class GameControl extends Control {
                 break;
             case Input.Keys.P:
                 GameKeys.setKey(GameKeys.PAUSE, false);
+                break;
+            case Input.Keys.CONTROL_LEFT:
+                GameKeys.setKey(GameKeys.CONTROL,false);
                 break;
         }
         return true;

@@ -2,6 +2,8 @@ package main.gamestates;
 
 import main.gamestates.abstr.GameState;
 
+import javax.swing.text.View;
+
 public class GameStateManager {
 
     // current gamestate

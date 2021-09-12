@@ -6,6 +6,7 @@ import graphics.drwdat.abstr.DrwCulling;
 
 public class DrwRegion extends DrwCulling {
 
+    public static int numDraw = 0;
     protected TextureRegion region;
     boolean regionIsSet;
 
@@ -23,13 +24,17 @@ public class DrwRegion extends DrwCulling {
 
     @Override
     public void draw(SpriteBatch batch) {
+
         if (render) {
             if (regionIsSet) {
+
                 if (!isSectionSet()) {
                     batch.draw(region,x,y,w,h);
+                    //numDraw++;
                 }
                 else  {
                     if (getSection().currentlyInView()) {
+                        //numDraw++;
                         batch.draw(region,x,y,w,h);
                     }
                 }

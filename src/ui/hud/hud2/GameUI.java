@@ -12,6 +12,7 @@ public class GameUI extends UI {
     private UnitSelection unitManager;
 
     public GameUI() {
+        // pass in world to accsess all antities and tilemap.
         unitManager = new UnitSelection(this);
         hud = new HUD(this);
     }

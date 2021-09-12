@@ -1,5 +1,5 @@
 
-The program should should run in it's current state. You should see foreground, the black box and a white background.
+The program should should run in it's current animationState. You should see foreground, the black box and a white background.
 
 I am including the external gdx - libraries i am using in a lib folder within the project. Not using gradle or the gdx project setup.
 I never got this to work so i add the libraries manually.

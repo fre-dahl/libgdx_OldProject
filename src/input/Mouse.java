@@ -4,8 +4,6 @@ import camera.Cam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import components.effects.Effect;
-import components.effects.Effects;
 
 public class Mouse {
 
@@ -20,23 +18,23 @@ public class Mouse {
     private boolean r_justPressed, l_justPressed;
     private boolean r_justReleased, l_justReleased;
     // Screen Cordinates: (HUD/MENU)
-    private Vector2 mousePos_S;
-    private Vector2 r_clickPos_S, l_clickPos_S;
-    private Vector2 r_releasedPos_S, l_releasedPos_S;
-    private Vector2 r_dragVector_S, l_dragVector_S;
-    private Vector2 r_dragReleased_S, l_dragReleased_S;
-    private Rectangle r_highlightBox_S, l_highlightBox_S;
-    private Rectangle r_selectedBox_S, l_selectedBox_S;
+    private final Vector2 mousePos_S;
+    private final Vector2 r_clickPos_S, l_clickPos_S;
+    private final Vector2 r_releasedPos_S, l_releasedPos_S;
+    private final Vector2 r_dragVector_S, l_dragVector_S;
+    private final Vector2 r_dragReleased_S, l_dragReleased_S;
+    private final Rectangle r_highlightBox_S, l_highlightBox_S;
+    private final Rectangle r_selectedBox_S, l_selectedBox_S;
     // World Cordinates: (WORLD)
-    private Vector2 mousePos_W;
-    private Vector2 r_clickPos_W, l_clickPos_W;
-    private Vector2 r_releasedPos_W, l_releasedPos_W;
-    private Vector2 r_dragVector_W, l_dragVector_W;
-    private Vector2 r_dragReleased_W, l_dragReleased_W;
-    private Rectangle r_highlightBox_W, l_highlightBox_W;
-    private Rectangle r_selectedBox_W, l_selectedBox_W;
+    private final Vector2 mousePos_W;
+    private final Vector2 r_clickPos_W, l_clickPos_W;
+    private final Vector2 r_releasedPos_W, l_releasedPos_W;
+    private final Vector2 r_dragVector_W, l_dragVector_W;
+    private final Vector2 r_dragReleased_W, l_dragReleased_W;
+    private final Rectangle r_highlightBox_W, l_highlightBox_W;
+    private final Rectangle r_selectedBox_W, l_selectedBox_W;
 
-    private Vector2 tmpVector;
+    private final Vector2 tmpVector;
 
     private Mouse() {
         mousePos_S = new Vector2();
@@ -135,14 +133,14 @@ public class Mouse {
     }
 
     public void rightClick(int x, int y) {
+        System.out.println("gg");
         tmpVector.set(x,y);
         r_buttonDown = true;
         r_justPressed = true;
         r_clickPos_S.set(x, Gdx.graphics.getHeight() - y);
         listener.rightclick_S(r_clickPos_S);
-        r_clickPos_W.set(Cam.instance.adjustToWorldCords(tmpVector));
+        r_clickPos_W.set(mousePos_W);
         listener.rightclick_W(r_clickPos_W);
-        Effects.instance.create(Effect.Type.KNIGHT_EXPLODE,r_clickPos_W);
     }
 
     public void leftClick(int x, int y) {
@@ -151,7 +149,7 @@ public class Mouse {
         l_justPressed = true;
         l_clickPos_S.set(x, Gdx.graphics.getHeight() - y);
         listener.leftclick_S(l_clickPos_S);
-        l_clickPos_W.set(Cam.instance.adjustToWorldCords(tmpVector));
+        l_clickPos_W.set(mousePos_W);
         listener.leftclick_W(l_clickPos_W);
     }
 
@@ -162,7 +160,7 @@ public class Mouse {
         boolean select = r_buttonDown_timer > SELECTION_DELAY;
         r_buttonDown_timer = 0f;
         r_releasedPos_S.set(x, Gdx.graphics.getHeight() - y);
-        r_releasedPos_W.set(Cam.instance.adjustToWorldCords(tmpVector));
+        r_releasedPos_W.set(mousePos_W);
         if (select) {
             r_selectedBox_S.set(r_highlightBox_S);
             r_selectedBox_W.set(r_highlightBox_W);
@@ -186,7 +184,7 @@ public class Mouse {
         boolean select = l_buttonDown_timer > SELECTION_DELAY;
         l_buttonDown_timer = 0f;
         l_releasedPos_S.set(x, Gdx.graphics.getHeight() - y);
-        l_releasedPos_W.set(Cam.instance.adjustToWorldCords(tmpVector));
+        l_releasedPos_W.set(mousePos_W);
         if (select) {
             l_selectedBox_S.set(l_highlightBox_S);
             l_selectedBox_W.set(l_highlightBox_W);
@@ -201,6 +199,12 @@ public class Mouse {
         l_highlightBox_W.set(0,0,0,0);
         l_dragVector_S.set(0,0);
         l_dragVector_W.set(0,0);
+    }
+
+    // TEMP
+
+    public Vector2 getMousePos_W (){
+        return mousePos_W;
     }
 
     public interface MouseEventListener {

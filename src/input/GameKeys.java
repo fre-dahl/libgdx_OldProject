@@ -2,10 +2,12 @@ package input;
 
 public class GameKeys {
 
-    private static boolean[] keys;
-    private static boolean[] pkeys;
+    private static final byte NUM_KEYS = 10;
 
-    private static final byte NUM_KEYS = 9;
+    private static boolean[] keys = new boolean[NUM_KEYS];
+    private static boolean[] pkeys = new boolean[NUM_KEYS];
+
+
 
     public static final byte UP = 0;
     public static final byte RIGHT = 1;
@@ -16,6 +18,7 @@ public class GameKeys {
     public static final byte SPACE = 6;
     public static final byte SHIFT = 7;
     public static final byte PAUSE = 8;
+    public static final byte CONTROL = 9;
 
 
     public static void update() {
@@ -23,8 +26,8 @@ public class GameKeys {
     }
 
     public static void resetKeys() {
-        keys = new boolean[NUM_KEYS];
-        pkeys = new boolean[NUM_KEYS];
+        //keys = new boolean[NUM_KEYS];
+        //pkeys = new boolean[NUM_KEYS];
     }
 
     public static void setKey(int k, boolean b) {

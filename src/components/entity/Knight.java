@@ -22,17 +22,16 @@ public class Knight extends Entity {
 
     public Knight(Type type, Disposition disposition, GameWorld world, float x, float y) {
         super(type,world,x,y);
-        playerUnit = true;
         this.disposition = disposition;
         animations = new AnimationSet();
-        animations.newAnimations(State.IDLE, Assets.instance.assetUnits.knight_idle,0.2f);
-        animations.newAnimations(State.WALK,Assets.instance.assetUnits.knight_walk,0.1f);
-        drwBody = new DrwRegion(animations.getInitial(State.IDLE),x-type.getW()/2,y,type.getW() * Settings.SCALE,type.getH() * Settings.SCALE,(byte)5);
+        animations.newAnimations(AnimationState.IDLE, Assets.instance.assetUnits.knight_idle,0.2f);
+        animations.newAnimations(AnimationState.WALK,Assets.instance.assetUnits.knight_walk,0.1f);
+        drwBody = new DrwRegion(animations.getInitial(AnimationState.IDLE),x-type.getW()/2,y,type.getW() * Settings.SCALE,type.getH() * Settings.SCALE,(byte)5);
         drwShadow = new DrwRegion(Assets.instance.assetUnits.human_shadow,x,y,type.getW()*Settings.SCALE,8*Settings.SCALE,(byte)4);
         drwReflection = new DrwExtra(drwBody.getRegion(), drwBody.getX(), drwBody.getY(), drwBody.getW(), drwBody.getH(),(byte)1,true);
         drwReflection.setAlpha(0.5f);
-        state = State.IDLE;
-        animations.init(state);
+        animationState = AnimationState.IDLE;
+        animations.init(animationState);
         velocity.set(0,-1);
         moveSpeed = 50f;
     }
@@ -49,13 +48,13 @@ public class Knight extends Entity {
             drwBody.setRender(true);
             drwShadow.setRender(true);
             drwBody.setPosition(position.x-(type.getW()/2*Settings.SCALE) , position.y);
-            drwBody.setRegion(animations.getKeyFrame(state,velocity.angle(),dt));
+            drwBody.setRegion(animations.getKeyFrame(animationState,velocity.angle(),dt));
             drwShadow.setPosition(drwBody.getX(),position.y - 4*Settings.SCALE);
             if (nearWater){
                 drwReflection.setRegion(drwBody.getRegion());
                 drwReflection.setPosition(drwBody.getX(), drwBody.getY()-type.getH()*Settings.SCALE);
                 drwReflection.setRender(true);
-                if (state == State.WALK) {
+                if (animationState == AnimationState.WALK) {
                     waterRippleTimer +=dt;
                     if (waterRippleTimer >0.1f) {
                         Effects.instance.create(Effect.Type.WATER_RIPPLES,position);

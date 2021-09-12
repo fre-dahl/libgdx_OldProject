@@ -3,7 +3,8 @@ package graphics.anim;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import components.entity.Entity.State;
+import components.entity.Entity;
+import components.entity.Entity.AnimationState;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,34 +12,34 @@ import java.util.Map;
 public class AnimationSet {
 
     public static final String TAG = AnimationSet.class.getName();
-    private Map<State, Animations> animations;
+    private Map<Entity.AnimationState, Animations> animations;
     private Animations currentAnimations;
-    private State currentState;
+    private Entity.AnimationState currentAnimationState;
 
     public AnimationSet() {
         animations = new HashMap<>();
     }
 
-    public void newAnimations(State state, Array<Array<TextureRegion>> grid, float frameDuration) {
-        if (animations.containsKey(state)) { Gdx.app.log(TAG, "State already initiated"); }
-        else animations.put(state, new Animations(grid, frameDuration));
+    public void newAnimations(AnimationState animationState, Array<Array<TextureRegion>> grid, float frameDuration) {
+        if (animations.containsKey(animationState)) { Gdx.app.log(TAG, "State already initiated"); }
+        else animations.put(animationState, new Animations(grid, frameDuration));
     }
 
-    public TextureRegion getKeyFrame(State state, float deg, float dt) {
-        if (state != currentState) {
+    public TextureRegion getKeyFrame(Entity.AnimationState animationState, float deg, float dt) {
+        if (animationState != currentAnimationState) {
             currentAnimations.reset();
-            currentAnimations = animations.get(state);
-            currentState = state;
+            currentAnimations = animations.get(animationState);
+            currentAnimationState = animationState;
         }
         return currentAnimations.getKeyFrame(deg,dt);
     }
 
-    public TextureRegion getInitial(State state) {
-        return animations.get(state).getKeyFrame(270,0);
+    public TextureRegion getInitial(AnimationState animationState) {
+        return animations.get(animationState).getKeyFrame(270,0);
     }
 
-    public void init(State state) {
-        currentState = state;
-        currentAnimations = animations.get(currentState);
+    public void init(Entity.AnimationState animationState) {
+        currentAnimationState = animationState;
+        currentAnimations = animations.get(currentAnimationState);
     }
 }

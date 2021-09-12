@@ -130,9 +130,13 @@ public class Cam {
 
     public Vector2 adjustToWorldCords(Vector2 mousePosition) {
         tmpVector3.set(mousePosition.x, mousePosition.y,0);
+        long startTime = System.nanoTime();
         camera.unproject(tmpVector3);
         tmpVector2.x = tmpVector3.x;
         tmpVector2.y = tmpVector3.y;
+        long endTime = System.nanoTime();
+        long updateTime = (endTime - startTime) / 1000;
+        System.out.println(updateTime);
         return tmpVector2;
     }
 

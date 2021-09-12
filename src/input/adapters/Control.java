@@ -7,12 +7,13 @@ import input.Mouse;
 
 public abstract class Control extends InputAdapter {
 
-    // input listeners are called each frame begore (aplicationListeners render())
+    // input listeners are called each frame before (aplicationListeners render())
     // altså rett før render() i Gameclass.java
 
     protected Control() {
         GameKeys.resetKeys();
     }
+
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {

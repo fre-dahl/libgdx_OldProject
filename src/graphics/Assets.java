@@ -121,7 +121,7 @@ public class Assets implements Disposable, AssetErrorListener {
             knight_idle = split(atlas.findRegion("knight_yellow_idle"),16,21);
             knight_walk = split(atlas.findRegion("knight_yellow_walk"),16,21);
             TextureRegion explode = atlas.findRegion("knight_yellow_explode");
-            knight_explode = new Animation<TextureRegion>(0.06f,getKeyFrames(explode,16), Animation.PlayMode.NORMAL);
+            knight_explode = new Animation<TextureRegion>(0.04f,getKeyFrames(explode,16), Animation.PlayMode.NORMAL);
             human_friendly_selected = new TextureRegion(atlas.findRegion("human_friendly_selected"),0,0,32,16);
             human_neutral_selected = new TextureRegion(atlas.findRegion("human_neutral_selected"),0,0,32,16);
             human_hostile_selected = new TextureRegion(atlas.findRegion("human_hostile_selected"),0,0,32,16);
@@ -287,9 +287,9 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public abstract class AssetTiles {
+        public abstract class AssetTiles {
 
-        public AssetTiles(TextureAtlas atlas) { }
+            public AssetTiles(TextureAtlas atlas) { }
 
         public Array<Array<TextureRegion>> split(TextureRegion region, int size) {
             if (region!=null) {

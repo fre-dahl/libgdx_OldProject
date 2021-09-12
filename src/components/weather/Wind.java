@@ -56,6 +56,7 @@ public class Wind {
         }
 
     }
+    
 
     public void update(float dt) {
         timer += dt;

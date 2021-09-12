@@ -39,10 +39,14 @@ public abstract class UI implements MouseEventListener {
         Rectangle getBox();
     }
 
-    public interface SelectableUnit extends Selectable {
+    public interface SelectableUnit<Entity> extends Selectable {
+        // Might want to merge Interactable in Selectable.
+        // That means changing the worldobject target in Action-class to selectable
+        // this is more logical.
         // Action Commands
         Disposition getDisposition();
         void moveTo(Vector2 pos);
+        void moveTo(Vector2 pos, boolean clearQueue);
         //void useAbilitySelf(Ability ability)
         //void useAbilityTarget(Ability ability, WorldObject target)
         //void useAbility
