@@ -7,7 +7,9 @@ public class Settings {
     //public static final int SCREEN_W = 1920;
     //public static final int SCREEN_H = 1080;
 
-    public static final int SCALE = 2; // se om ikke du får denne inn i drw isteden for å sette dn overalt
+    public static final boolean SHOW_HUD = true;
+
+    public static final int SCALE = 1; // se om ikke du får denne inn i drw isteden for å sette dn overalt
     public static final int TILE_SIZE_M = 16;
     public static final int TILE_SIZE_L = 32;
     public static final int OCTAVE_COUNT = 9;
@@ -16,4 +18,5 @@ public class Settings {
     public static final boolean SMOOTHEN = true;
 
     public static final boolean WATER_SHADER = true;
+
 }

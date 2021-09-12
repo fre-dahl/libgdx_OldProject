@@ -1,12 +1,13 @@
 package camera;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import input.GameKeys;
 
 public class FocusPoint {
 
     public static boolean inControl = true;
-    public static float velocity = 1000f;
+    public static float velocity = 10f;
     public static Vector2 position =    new Vector2(0,0);
     private static Vector2 direction =  new Vector2(0,0);
 
@@ -21,8 +22,15 @@ public class FocusPoint {
             if (GameKeys.isDown(GameKeys.LEFT))   { direction.x = -1; }
             if (GameKeys.isDown(GameKeys.UP) && GameKeys.isDown(GameKeys.DOWN))     { direction.y = 0; }
             if (GameKeys.isDown(GameKeys.RIGHT) && GameKeys.isDown(GameKeys.LEFT))  { direction.x = 0; }
-            if (direction.x != 0) position.x += direction.nor().x * velocity * dt;
-            if (direction.y != 0) position.y += direction.nor().y * velocity * dt;
+            float xdt = 0; float ydt = 0;
+            if (direction.x != 0) {
+                xdt = direction.nor().x * velocity * dt;
+                position.x += xdt;
+            }
+            if (direction.y != 0) {
+                ydt = direction.nor().y * velocity * dt;
+                position.y += ydt;
+            }
             Cam.instance.lerpToTarget(position);
         }
     }

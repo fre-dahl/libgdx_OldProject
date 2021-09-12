@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import components.entity.Entity.Disposition;
+import input.GameKeys;
 import ui.UI.SelectableUnit;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class UnitSelection {
     private SelectableUnit hoveredUnit;
 
     private GameUI userInterface;
+
+    // remember to change =! -> !equals()
 
     public UnitSelection(GameUI userInterface) {
         this.userInterface = userInterface;
@@ -49,9 +52,7 @@ public class UnitSelection {
     public void hover(Vector2 pos) {
         if (hoveredUnit != null) {
             if (!hoveredUnit.getBox().contains(pos)) {
-                if (!selectedUnits.contains(hoveredUnit,true)) {
-                    hoveredUnit.deHovered();
-                }
+                hoveredUnit.deHovered();
                 hoveredUnit = null;
             }
         }
@@ -156,12 +157,16 @@ public class UnitSelection {
 
         else if (activeUnits == SINGLE_UNIT) {
             SelectableUnit unit = selectedUnits.first();
-            if (unit.getDisposition() == Disposition.FRIENDLY) unit.moveTo(pos);
+            if (unit.getDisposition() == Disposition.FRIENDLY) {
+                boolean clearQueue = !GameKeys.isDown(GameKeys.CONTROL);
+                unit.moveTo(pos,clearQueue);
+            }
         }
 
         else {
             for (SelectableUnit unit : selectedUnits) {
-                unit.moveTo(pos);
+                boolean clearQueue = !GameKeys.isDown(GameKeys.CONTROL);
+                unit.moveTo(pos,clearQueue);
                 //unit.useAbility(unit.activeAbility(), pos)
                 //unit.useAbility(ability, target); check in unit method if ability is legal
             }
@@ -202,5 +207,13 @@ public class UnitSelection {
         }
     }
 
+    // TEMP
+
+    public void removeUnit2(SelectableUnit unit) {
+        if (activeUnits == SINGLE_UNIT) {
+            activeUnits = NONE;
+            selectedUnits.removeValue(unit,true);
+        }
+    }
 
 }

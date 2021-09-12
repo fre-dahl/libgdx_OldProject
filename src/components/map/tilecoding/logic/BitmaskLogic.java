@@ -12,7 +12,7 @@ public class BitmaskLogic {
 
     //  TODO: 21/12/2019 Implement try / exception catch
 
-    private static Map<Integer, Integer> logic = Map.ofEntries(
+    private static final Map<Integer, Integer> logic = Map.ofEntries(
             entry(2,1), entry(8,2), entry(10,3),
             entry(11,4), entry(16,5), entry(18,6),
             entry(22,7), entry(24,8), entry(26,9),

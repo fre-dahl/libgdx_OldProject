@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import components.effects.Effects;
+import components.map.tilecoding.logic.BitmaskLogic;
 import main.gamestates.GameStateManager;
 import input.Mouse;
 import graphics.DrwHandler;
@@ -31,9 +32,9 @@ public class GameClass extends ApplicationAdapter {
         float dt = Gdx.graphics.getDeltaTime();
         Gdx.graphics.setTitle( "fps: " + Gdx.graphics.getFramesPerSecond());
         Cam.instance.update(dt);
-        gsm.delegate(dt);
-        // Mouse must be updated after gsm: ("justPressed/justReleased")
         Mouse.instance.update(dt);
+        gsm.delegate(dt);
+        // Mouse must be updated after gsm: ("justPressed/justReleased") ??
     }
 
     @Override

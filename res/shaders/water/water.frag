@@ -41,7 +41,7 @@ void main()
 
     // MIXING
 
-    tex.rgb = mix(tex.rgb, tex.rgb * vignette * edgeX * edgeY * u_tone.rgb, COLOR_INTENSITY); // * u_tone.rgb
+    tex.rgb = mix(tex.rgb, tex.rgb * vignette * edgeX * edgeY , COLOR_INTENSITY); // * u_tone.rgb
 
     gl_FragColor = tex * v_color;
 }

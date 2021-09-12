@@ -2,7 +2,7 @@ package components.entity;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import components.entity.Entity.State;
+import components.entity.Entity.AnimationState;
 import components.entity.ActionPool.ActionPoolItem;
 import main.Settings;
 
@@ -88,6 +88,7 @@ public class Action implements ActionPoolItem {
         float x = targetObject.position.x - actor.position.x;
         float y = targetObject.position.y - actor.position.y;
         actor.velocity.set(x,y);
+        // add forces here
         actor.velocity.nor();
         actor.velocity.scl(actor.moveSpeed);
         actor.position.add(actor.velocity.x * dt * Settings.SCALE, actor.velocity.y * dt * Settings.SCALE);
@@ -104,11 +105,16 @@ public class Action implements ActionPoolItem {
             complete = true;
         }
         else {
+            addForces();
             actor.velocity.nor();
             actor.velocity.scl(actor.moveSpeed);
             actor.position.add(actor.velocity.x * dt * Settings.SCALE, actor.velocity.y * dt * Settings.SCALE);
         }
         actor.updateGridPos();
+    }
+
+    private void addForces()  {
+
     }
 
 
@@ -138,7 +144,7 @@ public class Action implements ActionPoolItem {
         if (actor.actionQueue.size == 1) {
             switch (intent) {
                 case MOVE_TO_POSITION:
-                case MOVE_TO_WORLD_OBJECT: actor.state = State.WALK; break;
+                case MOVE_TO_WORLD_OBJECT: actor.animationState = AnimationState.WALK; break;
             }
         }
     }
@@ -149,10 +155,10 @@ public class Action implements ActionPoolItem {
             Intent newIntent = actor.actionQueue.get(0).intent;
             switch (newIntent) {
                 case MOVE_TO_POSITION:
-                case MOVE_TO_WORLD_OBJECT: actor.state = State.WALK; break;
+                case MOVE_TO_WORLD_OBJECT: actor.animationState = AnimationState.WALK; break;
             }
         }
-        else actor.state = State.IDLE;
+        else actor.animationState = AnimationState.IDLE;
         targetReached = false;
         performing = false;
         complete = false;
